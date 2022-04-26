@@ -1,4 +1,4 @@
-load Results.mat
+load Results4.mat
 
 %apply forward fourier transformation and data normalization
 tempnorm = Results(:,51:end) - mean(Results(:,51:end),2);
@@ -19,10 +19,9 @@ P1(:,2:end-1) = 2*P1(:,2:end-1);
 frequency = 0:(Fs/n):(Fs/2-Fs/n);
 amplitude = P1(:,1:n/2);
 
-
 for k = 1:length(Results)
     pks = [];
-    [pks,locs] = findpeaks(amplitude(k,:),'MinPeakheight',0.1);
+    [pks,locs] = findpeaks(amplitude(k,:),'MinPeakheight',0.01);
     freq = frequency(locs);
     if ~isempty(pks)
         Out(k,1:length(freq)) = freq;

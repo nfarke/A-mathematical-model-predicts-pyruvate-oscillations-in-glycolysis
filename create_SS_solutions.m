@@ -1,9 +1,10 @@
 %this file generates the .mat-file PAR.mat. It generates steady state
 %solutions of three models (base strain model, knock-out model, 2xCra model)
-ParSize = 100; %adjust number of Parameter sets
+
+ParSize = 1000; %adjust number of Parameter sets
 tspan = 0:300;
 par_end = zeros(26,ParSize);
-opts = odeset('RelTol',1e-04,'AbsTol',1E-5);
+opts = odeset('RelTol',1e-03,'AbsTol',1E-4);
 
 %syms Vmax1 Vmax2 Vmax3 Vmax4 Vmax5 Vmax6 k1 k2 k3 Km1 Km2 Km3 Km4 Km5 n1 n2 n3 ratio1 a1 a2 a3 a4 g6p fbp pep pyr
 
@@ -71,31 +72,33 @@ parfor i1 = 1:ParSize
         r6 = Vmax6 * 1/(1 + (Km5/pyr)^n3);
 
         
-%         J = [-(Km1*Vmax2*n1*(Km1/g6p)^(n1 - 1))/(g6p^2*pep^a1*((Km1/g6p)^n1 + 1)^2),                                                 (Vmax3*pep^a2)/(Km2 + fbp) - (Vmax3*fbp*pep^a2)/(Km2 + fbp)^2, (Vmax1*((k1*pyr)/pep^2 + (k3*pyr)/pep^2))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 + (Vmax2*a1)/(pep^(a1 + 1)*((Km1/g6p)^n1 + 1)) + (Vmax3*a2*fbp*pep^(a2 - 1))/(Km2 + fbp),                                                        -(Vmax1*(k1/pep + k3/pep))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2;
-%               (Km1*Vmax2*n1*(Km1/g6p)^(n1 - 1))/(g6p^2*pep^a1*((Km1/g6p)^n1 + 1)^2), (Vmax4*fbp)/(Km3 + fbp)^2 - (Vmax3*pep^a2)/(Km2 + fbp) - Vmax4/(Km3 + fbp) + (Vmax3*fbp*pep^a2)/(Km2 + fbp)^2,                                                                                    - (Vmax2*a1)/(pep^(a1 + 1)*((Km1/g6p)^n1 + 1)) - (Vmax3*a2*fbp*pep^(a2 - 1))/(Km2 + fbp),                                                                                                                          0;
-%                                                                      0,              (2*Vmax4)/(Km3 + fbp) - (2*Vmax4*fbp)/(Km3 + fbp)^2 - (Vmax5*a3*fbp^(a3 - 1))/((Km4/pep)^n2 + 1),                - (Vmax1*((k1*pyr)/pep^2 + (k3*pyr)/pep^2))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 - (Km4*Vmax5*fbp^a3*n2*(Km4/pep)^(n2 - 1))/(pep^2*((Km4/pep)^n2 + 1)^2),                                                                      (Vmax1*(k1/pep + k3/pep))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2;
-%                                                                      0,                                                                    (Vmax5*a3*fbp^(a3 - 1))/((Km4/pep)^n2 + 1),                  (Vmax1*((k1*pyr)/pep^2 + (k3*pyr)/pep^2))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 + (Km4*Vmax5*fbp^a3*n2*(Km4/pep)^(n2 - 1))/(pep^2*((Km4/pep)^n2 + 1)^2), - (Vmax1*(k1/pep + k3/pep))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 - (2*Km5*Vmax6*n3*(Km5/pyr)^(n3 - 1))/(pyr^2*((Km5/pyr)^n3 + 1)^2)];
+        J = [-(Km1*Vmax2*n1*(Km1/g6p)^(n1 - 1))/(g6p^2*pep^a1*((Km1/g6p)^n1 + 1)^2),                                                 (Vmax3*pep^a2)/(Km2 + fbp) - (Vmax3*fbp*pep^a2)/(Km2 + fbp)^2, (Vmax1*((k1*pyr)/pep^2 + (k3*pyr)/pep^2))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 + (Vmax2*a1)/(pep^(a1 + 1)*((Km1/g6p)^n1 + 1)) + (Vmax3*a2*fbp*pep^(a2 - 1))/(Km2 + fbp),                                                        -(Vmax1*(k1/pep + k3/pep))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2;
+              (Km1*Vmax2*n1*(Km1/g6p)^(n1 - 1))/(g6p^2*pep^a1*((Km1/g6p)^n1 + 1)^2), (Vmax4*fbp)/(Km3 + fbp)^2 - (Vmax3*pep^a2)/(Km2 + fbp) - Vmax4/(Km3 + fbp) + (Vmax3*fbp*pep^a2)/(Km2 + fbp)^2,                                                                                    - (Vmax2*a1)/(pep^(a1 + 1)*((Km1/g6p)^n1 + 1)) - (Vmax3*a2*fbp*pep^(a2 - 1))/(Km2 + fbp),                                                                                                                          0;
+                                                                     0,              (2*Vmax4)/(Km3 + fbp) - (2*Vmax4*fbp)/(Km3 + fbp)^2 - (Vmax5*a3*fbp^(a3 - 1))/((Km4/pep)^n2 + 1),                - (Vmax1*((k1*pyr)/pep^2 + (k3*pyr)/pep^2))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 - (Km4*Vmax5*fbp^a3*n2*(Km4/pep)^(n2 - 1))/(pep^2*((Km4/pep)^n2 + 1)^2),                                                                      (Vmax1*(k1/pep + k3/pep))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2;
+                                                                     0,                                                                    (Vmax5*a3*fbp^(a3 - 1))/((Km4/pep)^n2 + 1),                  (Vmax1*((k1*pyr)/pep^2 + (k3*pyr)/pep^2))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 + (Km4*Vmax5*fbp^a3*n2*(Km4/pep)^(n2 - 1))/(pep^2*((Km4/pep)^n2 + 1)^2), - (Vmax1*(k1/pep + k3/pep))/(k2 + (k1*pyr)/pep + (k3*pyr)/pep + 1)^2 - (2*Km5*Vmax6*n3*(Km5/pyr)^(n3 - 1))/(pyr^2*((Km5/pyr)^n3 + 1)^2)];
 
-%         EV = eig(J);
-%         [realx,idx] = max(real(EV));
-%         imagx = imag(EV);
-%         imagx = imagx(idx);
+        EV = eig(J);
+        [realx,idx] = max(real(EV));
+        imagx = imag(EV);
+        imagx = imagx(idx);
         
-%         RE(i1) = realx;
-%         ratio(i1) = abs(imagx)/abs(realx);
+        RE(i1) = realx;
+        IMAG(i1) = imagx;
+        ratio(i1) = abs(imagx)/abs(realx);
         
-%         if realx > -1E-05
-%            stable(i1) = 0;
-%         else
-%            stable(i1) = 1;
-%         end   
+        if realx > -1E-05
+           stable(i1) = 0;
+        else
+           stable(i1) = 1;
+        end
+        
         pyr =  y(:,4);   
         Results(i1,:) = pyr;
         PAR(i1,:) = par;         
 end
             
             
-            
+save('Results','PAR','Results','stable','RE','IMAG','-v7.3')           
             
 
 
@@ -114,34 +117,34 @@ P2 = abs(Y/L);
 P1 = P2(:,1:n/2+1);
 P1(:,2:end-1) = 2*P1(:,2:end-1);
 
-for k = 1:ParSize
-    figure(k)
-    subplot(2,1,1)
-    plot(0:(Fs/n):(Fs/2-Fs/n),P1(k,1:n/2))
-    subplot(2,1,2)
-    plot(Results(k,:))
-end
+% for k = 1:ParSize
+%     figure(k)
+%     subplot(2,1,1)
+%     plot(0:(Fs/n):(Fs/2-Fs/n),P1(k,1:n/2))
+%     subplot(2,1,2)
+%     plot(Results(k,:))
+% end
+
+
+
+frequency = 0:(Fs/n):(Fs/2-Fs/n);
+amplitude = P1(:,1:n/2);
 
 for k = 1:ParSize
     pks = [];
-    pks = findpeaks(P1(k,:),'MinPeakheight',0.1);
-    
+    [pks,locs] = findpeaks(amplitude(k,:),'MinPeakheight',0.1);
+    freq = frequency(locs);
     if ~isempty(pks)
-        Out(k) = 1;
+        Out(k,1:length(freq)) = freq;
     else
-        Out(k) = 0;
+        Out(k,:) = 0;
     end
 end
 PAR = PAR(:,1:22);
 [p,~] = Sample(1,1);
 px = p(1:22);
+par_selected = PAR(find(Out(:,1)),1:22);
 
-par_selected = PAR(find(Out),1:22);
-
-%x1 = find(stable);
-%x2 = find(Out);
-
-%stable_oscillating = intersect(x1,x2);
 
 %boxplot(PAR)
 figure(1)
