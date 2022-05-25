@@ -1,4 +1,4 @@
-load Results4.mat
+load Resultsup.mat
 
 %apply forward fourier transformation and data normalization
 tempnorm = Results(:,51:end) - mean(Results(:,51:end),2);
@@ -31,7 +31,7 @@ for k = 1:length(Results)
 end
 
 
-save('FFT_info','Out','amplitude','frequency')
+save('FFT_info_up','Out','amplitude','frequency')
 
 
 

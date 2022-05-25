@@ -1,5 +1,5 @@
-load Results4
-load FFT_info
+load Resultsup.mat
+load FFT_info_up
 
 PAR = PAR(:,1:22);
 [p,~] = Sample(1,1);
