@@ -1,13 +1,13 @@
 %this file generates the .mat-file PAR.mat. It generates steady state
 %solutions of three models (base strain model, knock-out model, 2xCra model)
 rng(6)
-ParSize = 1000; %adjust number of Parameter sets
-tspan = 0:300;
+ParSize = 2000; %adjust number of Parameter sets
+tspan = 0:500;
 par_end = zeros(26,ParSize);
-opts = odeset('RelTol',1e-03,'AbsTol',1E-4);
+opts = odeset('RelTol',1e-08,'AbsTol',1E-12);
 
 %syms Vmax1 Vmax2 Vmax3 Vmax4 Vmax5 Vmax6 k1 k2 k3 Km1 Km2 Km3 Km4 Km5 n1 n2 n3 ratio1 a1 a2 a3 a4 g6p fbp pep pyr
-
+%parpool(18)
 cntr = 1;
 parfor i1 = 1:ParSize
      disp(i1)
@@ -35,21 +35,21 @@ parfor i1 = 1:ParSize
         a3 = par(find(strcmp(p,'a3')),1);
 
         ratio1 = par(find(strcmp(p,'ratio1')),1);
-        x1 = -(ratio1*66.67)/(ratio1 - 1);
+        x1 = -(ratio1*66.67/10)/(ratio1 - 1);
 
         g6p = par(find(strcmp(p,'g6p')),1);
         fbp = par(find(strcmp(p,'fbp')),1);
         pep = par(find(strcmp(p,'pep')),1);
         pyr = par(find(strcmp(p,'pyr')),1);
 
-        par(strcmp('Vmax1',p)) = 66.67*(k1*pyr/pep + k2 + k3*pyr/pep + 1);
-        par(strcmp('Vmax2',p)) = (66.67+x1)*(1 + (Km1/g6p).^n1) * pep^a1;
+        par(strcmp('Vmax1',p)) = 66.67/10*(k1*pyr/pep + k2 + k3*pyr/pep + 1);
+        par(strcmp('Vmax2',p)) = (66.67/10+x1)*(1 + (Km1/g6p).^n1) * pep^a1;
         par(strcmp('Vmax3',p)) = x1*(1 + (Km2/fbp))/pep^a2;
-        par(strcmp('Vmax4',p)) = 66.67 * (1 +  Km3/fbp);
-        par(strcmp('Vmax5',p)) = 66.67 * (1 + (Km4/pep)^n2)/fbp^a3;
-        par(strcmp('Vmax6',p)) = 66.67 * (1 + (Km5/pyr)^n3);
+        par(strcmp('Vmax4',p)) = 66.67/10 * (1 +  Km3/fbp);
+        par(strcmp('Vmax5',p)) = 66.67/10 * (1 + (Km4/pep)^n2)/fbp^a3;
+        par(strcmp('Vmax6',p)) = 66.67/10 * (1 + (Km5/pyr)^n3);
 
-        [~,y]  =  ode23s(@(t,c) odemodel(t,c,p,par),tspan,y0,opts);  
+        [~,y]  =  ode23tb(@(t,c) odemodel(t,c,p,par),tspan,y0,opts);  
 
         %Variables at t(end)
         f6p  =  y(20,1);
@@ -97,7 +97,7 @@ parfor i1 = 1:ParSize
         PAR(i1,:) = par;         
 end
                        
-save('Resultsup1','PAR','Results','stable','RE','IMAG','-v7.3')           
+save('Resultsup4','PAR','Results','stable','RE','IMAG','-v7.3')           
 
 function dcdt  =  odemodel(t,c,p,par,~)
 
@@ -112,7 +112,7 @@ Vmax5 = par(find(strcmp(p,'Vmax5')),1);
 Vmax6 = par(find(strcmp(p,'Vmax6')),1);
 
 if t>50
-   Vmax1 = Vmax1 * 1.02;
+   Vmax1 = Vmax1 * 10;
 end
 
 k1 = par(find(strcmp(p,'k1')),1);
