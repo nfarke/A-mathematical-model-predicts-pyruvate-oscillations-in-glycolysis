@@ -6,19 +6,28 @@ PAR = PAR(:,1:22);
 px = p(1:22);
 par_selected = PAR(find(Out(:,1)),1:22);
 amp_selected = max(amplitude(find(Out(:,1)),:),[],2);
-a=1;
+
+imag_selected = IMAG(find((Out(:,1))));
 
 p={'Vmax1','Vmax2','Vmax3','Vmax4','Vmax5','Vmax6', 'k1','k2','k3','Km1','Km2',...
     'Km3','Km4','Km5','n1','n2','n3','ratio1','a1','a2','a3','a4','g6p','fbp','pep','pyr'};
 
 %histogram plot
 figure(1)
-for k = 1:21
+counter = 1;
+for k = 7:21
+
 nexttile
-histogram(log10(PAR(:,k)),100,'FaceColor',[0 0 1],'EdgeColor',[0 0 1])
+x1 = ones(size(PAR(:,k)));
+x2 = ones(size(par_selected(:,k)))*2;
+boxchart(x1,log10(PAR(:,k)))
 hold on
-histogram(log10(par_selected(:,k)),10,'FaceColor',[1 0 0],'EdgeColor',[1 0 0])
+boxchart(x2,log10(par_selected(:,k)))
 title(p(k))
+[h,px] = ttest2(log10(par_selected(:,k)),log10(PAR(:,k)),'Alpha',0.01);
+P(counter) = px;
+H(counter) = h;
+counter = counter + 1;
 end
 
 %boxplote of the phase
@@ -47,7 +56,7 @@ for k = 1:length(idx)
 end
 
 %plot all time courses together
-for k = 1:length(idx)
+for k = 1:2:10
     figure(200)
     plot(1:501,Results(idx(k),:))
     hold on

@@ -9,7 +9,7 @@ opts = odeset('RelTol',1e-08,'AbsTol',1E-12);
 %syms Vmax1 Vmax2 Vmax3 Vmax4 Vmax5 Vmax6 k1 k2 k3 Km1 Km2 Km3 Km4 Km5 n1 n2 n3 ratio1 a1 a2 a3 a4 g6p fbp pep pyr
 %parpool(18)
 cntr = 1;
-parfor i1 = 1:ParSize
+for i1 = 1:ParSize
      disp(i1)
      value = 0; %repeat when stability criteria are not met
      [p,par] = Sample(1,1); %samples one parameter set from case gg = 1
