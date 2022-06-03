@@ -1,5 +1,5 @@
-load Resultsup4.mat
-load FFT_info_up
+load Results10k.mat
+load FFT_info_10k
 
 PAR = PAR(:,1:22);
 [p,~] = Sample(1,1);
@@ -47,17 +47,17 @@ set(gca,'yscale','log')
 
 idx = find(~isnan(Out(:,1)));
 %plot fourier transformation / time course
-for k = 1:length(idx)
-    figure(k+2)
-    subplot(1,2,1)
-    plot(frequency,amplitude(idx(k),:))
-    subplot(1,2,2)
-    plot(1:501,Results(idx(k),:))
-end
+% for k = 1:length(idx)
+%     figure(k+2)
+%     subplot(1,2,1)
+%     plot(frequency,amplitude(idx(k),:))
+%     subplot(1,2,2)
+%     plot(1:501,Results(idx(k),:))
+% end
 
 %plot all time courses together
-for k = 1:2:10
-    figure(200)
-    plot(1:501,Results(idx(k),:))
-    hold on
-end
+% for k = 1:2:10
+%     figure(200)
+%     plot(1:501,Results(idx(k),:))
+%     hold on
+% end
