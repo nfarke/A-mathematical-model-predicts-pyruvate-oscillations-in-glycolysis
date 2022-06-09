@@ -1,5 +1,5 @@
-load Results10k.mat
-load FFT_info_10k
+load Results_1k_5down_merged.mat
+load FFT_info_1k_5down_merged
 
 PAR = PAR(:,1:22);
 [p,~] = Sample(1,1);
@@ -15,8 +15,8 @@ p={'Vmax1','Vmax2','Vmax3','Vmax4','Vmax5','Vmax6', 'k1','k2','k3','Km1','Km2',.
 %histogram plot
 figure(1)
 counter = 1;
-for k = 7:21
-
+for k = 1:21
+%if ~strcmp(p{k},'ratio1')
 nexttile
 x1 = ones(size(PAR(:,k)));
 x2 = ones(size(par_selected(:,k)))*2;
@@ -28,6 +28,7 @@ title(p(k))
 P(counter) = px;
 H(counter) = h;
 counter = counter + 1;
+%end
 end
 
 %boxplote of the phase
@@ -44,16 +45,17 @@ r = 1.10 - 0.2*rand(length(1./freq),1);
 scatter(r,1./freq,10,'filled','b')
 ylabel('Period')
 set(gca,'yscale','log')
+ylim([2 100])
 
 idx = find(~isnan(Out(:,1)));
 %plot fourier transformation / time course
-% for k = 1:length(idx)
-%     figure(k+2)
-%     subplot(1,2,1)
-%     plot(frequency,amplitude(idx(k),:))
-%     subplot(1,2,2)
-%     plot(1:501,Results(idx(k),:))
-% end
+for k = 1:length(idx)
+    figure(k+2)
+    subplot(1,2,1)
+    plot(frequency,amplitude(idx(k),:))
+    subplot(1,2,2)
+    plot(1:401,Results(idx(k),:))
+end
 
 %plot all time courses together
 % for k = 1:2:10

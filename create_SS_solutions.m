@@ -1,8 +1,8 @@
 %this file generates the .mat-file PAR.mat. It generates steady state
 %solutions of three models (base strain model, knock-out model, 2xCra model)
-rng(15)
-ParSize = 2000; %adjust number of Parameter sets
-tspan = 0:500;
+rng(3)
+ParSize = 128; %adjust number of Parameter sets
+tspan = 0:400;
 par_end = zeros(26,ParSize);
 opts = odeset('RelTol',1e-08,'AbsTol',1E-12);
 
@@ -97,7 +97,7 @@ parfor i1 = 1:ParSize
         PAR(i1,:) = par;         
 end
                        
-save('Resultsup8','PAR','Results','stable','RE','IMAG','-v7.3')           
+save('Results_1k_5down3','PAR','Results','stable','RE','IMAG','-v7.3')           
 
 function dcdt  =  odemodel(t,c,p,par,~)
 
@@ -112,7 +112,7 @@ Vmax5 = par(find(strcmp(p,'Vmax5')),1);
 Vmax6 = par(find(strcmp(p,'Vmax6')),1);
 
 if t>50
-   Vmax1 = Vmax1 * 10;
+   Vmax1 = Vmax1 * 0.95;
 end
 
 k1 = par(find(strcmp(p,'k1')),1);
