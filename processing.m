@@ -1,27 +1,8 @@
-load Results_1k_5down_merged
+load Results_new
 
 %apply forward fourier transformation and data normalization
 tempnorm = Results(:,51:end) - mean(Results(:,51:end),2);
 tempnorm = detrend(tempnorm,1);
-
-% [row,col] = find(tempnorm < -7);
-% setx = unique(row);
-% tempnorm(setx,:) = [];
-% IMAG(setx) = [];
-% PAR(setx,:) = [];
-% RE(setx) = [];
-% Results(setx,:) = [];
-% stable(setx) = [];
-% 
-% [row,col] = find(tempnorm > 5);
-% setx = unique(row);
-% tempnorm(setx,:) = [];
-% tempnorm(setx,:) = [];
-% IMAG(setx) = [];
-% PAR(setx,:) = [];
-% RE(setx) = [];
-% Results(setx,:) = [];
-% stable(setx) = [];
 
 Fs = 1;                    % Sampling frequency
 T = 1/Fs;                  % Sampling period
@@ -49,7 +30,7 @@ for k = 1:length(tempnorm)
     end
 end
 
-save('FFT_info_1k_5down_merged','Out','amplitude','frequency')
+save('FFT_info_new','Out','amplitude','frequency')
 
 
 
