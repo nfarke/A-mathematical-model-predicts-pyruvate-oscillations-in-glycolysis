@@ -4,7 +4,7 @@ config = dec2bin(0:2^N-1)' - '0';
 config = config';
 %parpool(17)
 for k = 1:length(config)
-    M = create_SS_solutions_function2(config(k,:),num2str(k));
+    M = create_SS_solutions_function(config(k,:),num2str(k));
 end
 
 for k = 1:length(config)
