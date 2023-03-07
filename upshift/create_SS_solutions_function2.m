@@ -1,18 +1,16 @@
 function Results  =  create_SS_solutions_function2(config,ix)
-%this file generates the .mat-file PAR.mat. It generates steady state
-%solutions of three models (base strain model, knock-out model, 2xCra model)
-ParSize = 200; %adjust number of Parameter sets
+
+ParSize = 5000; %adjust number of Parameter sets
 tspan = 0:400;
 par_end = zeros(26,ParSize);
 opts = odeset('RelTol',1e-07,'AbsTol',1E-9);
 
-%syms Vmax1 Vmax2 Vmax3 Vmax4 Vmax5 Vmax6 k1 k2 k3 Km1 Km2 Km3 Km4 Km5 n1 n2 n3 ratio1 a1 a2 a3 a4 g6p fbp pep pyr
 cntr = 1;
-for i1 = 1:37%1:ParSize
+for i1 = 1:ParSize
      disp(i1)
      value = 0; %repeat when stability criteria are not met
      while value == 0
-     [p,par] = Sample(1,1); %samples one parameter set from case gg = 1
+     [p,par] = Sample(1,1); %samples one parameter set
      y0 = par(end-3:end); %initial conditions
             
         %calculate constraint parameters 
@@ -126,7 +124,7 @@ RE(row) = [];
 IMAG(row) = [];
 stable(row) = [];
 
-save(strcat('Results_new',ix),'PAR','Results','stable','RE','IMAG','config','-v7.3')           
+save(strcat('Results',ix),'PAR','Results','stable','RE','IMAG','config','-v7.3')           
 end
 
 function dcdt  =  odemodel(t,c,p,par,~)
@@ -142,7 +140,7 @@ Vmax5 = par(find(strcmp(p,'Vmax5')),1);
 Vmax6 = par(find(strcmp(p,'Vmax6')),1);
 
 if t>50
-   Vmax1 = Vmax1 * 0.95;
+   Vmax1 = Vmax1 * 1.05;
 end
 
 k1 = par(find(strcmp(p,'k1')),1);
