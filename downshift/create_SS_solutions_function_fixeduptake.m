@@ -1,4 +1,4 @@
-function Results  =  create_SS_solutions_fixeduptake(config,ix)
+function Results  =  create_SS_solutions(config,ix)
 
 ParSize = 5000; %adjust number of Parameter sets
 tspan = 0:400;
