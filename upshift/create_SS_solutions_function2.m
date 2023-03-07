@@ -1,4 +1,4 @@
-function Results  =  create_SS_solutions_function2(config,ix)
+function Results  =  create_SS_solutions_function(config,ix)
 
 ParSize = 5000; %adjust number of Parameter sets
 tspan = 0:400;
