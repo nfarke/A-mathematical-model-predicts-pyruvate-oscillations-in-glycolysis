@@ -1,5 +1,5 @@
-load Results_new800
-load FFT_info_new800
+load Results
+load FFT_info
 
 PAR = PAR(:,1:22);
 [p,~] = Sample(1,1);
