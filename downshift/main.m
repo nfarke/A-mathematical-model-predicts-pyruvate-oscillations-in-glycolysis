@@ -47,28 +47,6 @@ for k = 1:length(config)
     end
     idx = find((Out(:,1)));
 
-    %for jx = 1:length(idx)
-    %figure(jx+2)
-    %subplot(1,2,1)
-    %plot(frequency,amplitude(idx(jx),:))
-    %subplot(1,2,2)
-    %plot(1:401,Results(idx(jx),:))
-    %end
-%     
-%     figure(4646464)
-%     Out(Out==0) = nan;
-%     for zz = 1:length(Out)
-%         freq(zz,1) = max(Out(zz,:));  
-%     end
-% 
-%     boxplot(1./freq,'symbol','')
-%     hold on
-%     r = 1.10 - 0.2*rand(length(1./freq),1);
-%     scatter(r,1./freq,10,'filled','b')
-%     ylabel('Period')
-%     set(gca,'yscale','log')
-%     ylim([1 200])
-    
     
     COUNT(k,1) = length(idx);
 end
