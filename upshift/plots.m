@@ -31,33 +31,7 @@ counter = counter + 1;
 end
 end
 
-% val52 = Results(:,52);
-% down = find(val52<1);
-% up   = find(val52>1);
-
-% figure(3953)
-% par_down = PAR(down,1:22);
-% par_up   = PAR(up,1:22);
-% counter = 1;
-% for k = 1: 21
-%     nexttile
-%     x1 = ones(size(par_down(:,k)));
-%     x2 = ones(size(par_up(:,k)))*2;
-%     boxchart(x1,log10(par_down(:,k)))
-%     hold on
-%     boxchart(x2,log10(par_up(:,k)))
-%     title(p(k))
-%     [h,px] = ttest2(log10(par_selected(:,k)),log10(PAR(:,k)),'Alpha',0.01);
-%     Px(counter) = px;
-%     Hx(counter) = h;
-%     counter = counter + 1;
-% end
-% 
-
-
-
-
-%boxplote of the phase
+%boxplote of the period
 figure(4646464)
 Out(Out==0) = nan;
 for k = 1:length(Out)
