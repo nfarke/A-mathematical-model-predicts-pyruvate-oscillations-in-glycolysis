@@ -1,18 +1,5 @@
-load Results_new800
+load Results
 
-% [row,col] = find(isnan(Results));
-% row = unique(row);
-% Results(row,:) = [];
-% IMAG(row) = [];
-% PAR(row,:) = [];
-% stable(row) = [];
-% RE(row) = [];
-% delid = find(Results(:,20) > 1.01);
-% Results(delid,:) = [];
-% delid = find(Results(:,20) < 0.99);
-% Results(delid,:) = [];
-% delid = find(Results(:,401) > 50);
-% Results(delid,:) = [];
 %apply forward fourier transformation and data normalization
 tempnorm = Results(:,51:end) - mean(Results(:,51:end),2);
 tempnorm = detrend(tempnorm,1);
@@ -43,7 +30,7 @@ for k = 1:length(tempnorm)
     end
 end
 
-save('FFT_info_new800','Out','amplitude','frequency')
+save('FFT_info','Out','amplitude','frequency')
 
 
 
