@@ -30,7 +30,7 @@ for k = 1:length(tempnorm)
     end
 end
 
-save('FFT_info_new800','Out','amplitude','frequency')
+save('FFT_info','Out','amplitude','frequency')
 
 
 
