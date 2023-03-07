@@ -1,4 +1,4 @@
-These files contain the code to build and analyse the model.
+These files contain the code to build and analyse the mathematical model.
 
 The analysis was performed for an upshift and downshift of the glucose uptake rate.
 
