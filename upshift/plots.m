@@ -1,5 +1,5 @@
-load Results_new800
-load FFT_info_new800
+load Results
+load FFT_info
 
 PAR = PAR(:,1:22);
 [p,~] = Sample(1,1);
@@ -55,10 +55,3 @@ for k = 1:length(idx)
     subplot(1,2,2)
     plot(1:401,Results(idx(k),:))
 end
-
-%plot all time courses together
-% for k = 1:2:10
-%     figure(200)
-%     plot(1:501,Results(idx(k),:))
-%     hold on
-% end
