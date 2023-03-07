@@ -7,14 +7,14 @@ for k = 1:length(config)
      M = create_SS_solutions_function_fixeduptake(config(k,:),num2str(k));
 end
 for k = 1:length(config)
-    results = load(strcat('Results_new',num2str(k*10),'.mat'));
+    results = load(strcat('Results_new',num2str(k),'.mat'));
     Results = results.Results;
     subplot(1,8,k)
     plot(Results')
 end
 
 for k = 1:length(config)
-    results = load(strcat('Results_new',num2str(k*100),'.mat'));
+    results = load(strcat('Results_new',num2str(k),'.mat'));
     Results = results.Results;
     tempnorm = Results(:,50:end) - mean(Results(:,50:end),2);
     %tempnorm = detrend(tempnorm,2);
