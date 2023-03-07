@@ -1,12 +1,10 @@
 function Results  =  create_SS_solutions_fixeduptake(config,ix)
-%this file generates the .mat-file PAR.mat. It generates steady state
-%solutions of three models (base strain model, knock-out model, 2xCra model)
-ParSize = 100; %adjust number of Parameter sets
+
+ParSize = 5000; %adjust number of Parameter sets
 tspan = 0:400;
 par_end = zeros(26,ParSize);
 opts = odeset('RelTol',1e-07,'AbsTol',1E-9);
 
-%syms Vmax1 Vmax2 Vmax3 Vmax4 Vmax5 Vmax6 k1 k2 k3 Km1 Km2 Km3 Km4 Km5 n1 n2 n3 ratio1 a1 a2 a3 a4 g6p fbp pep pyr
 cntr = 1;
 for i1 = 1:ParSize
      disp(i1)
@@ -127,7 +125,7 @@ RE(row) = [];
 IMAG(row) = [];
 stable(row) = [];
 
-save(strcat('Results_new',ix),'PAR','Results','stable','RE','IMAG','config','-v7.3')           
+save(strcat('Results',ix),'PAR','Results','stable','RE','IMAG','config','-v7.3')           
 end
 
 function dcdt  =  odemodel(t,c,p,par,~)
