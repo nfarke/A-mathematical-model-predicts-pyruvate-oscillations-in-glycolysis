@@ -1,13 +1,5 @@
 load Results
 
-% [row,col] = find(isnan(Results));
-% row = unique(row);
-% Results(row,:) = [];
-% IMAG(row) = [];
-% PAR(row,:) = [];
-% stable(row) = [];
-% RE(row) = [];
-
 %apply forward fourier transformation and data normalization
 tempnorm = Results(:,51:end) - mean(Results(:,51:end),2);
 tempnorm = detrend(tempnorm,1);
